@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "contract")
@@ -36,4 +37,7 @@ public class Contract {
     @ManyToOne
     @JoinColumn(name = "constrction_company_id")
     private ConstructionCompany company;
+
+    @OneToMany(mappedBy = "contract")
+    private List<ContractClause> contractClauses;
 }
