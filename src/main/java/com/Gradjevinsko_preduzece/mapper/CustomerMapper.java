@@ -12,6 +12,6 @@ public interface CustomerMapper {
 
     Customer createCustomerRecordToCustomer (CreateCustomerRecord customerRecord);
     CustomerRecord customerToCustomerRecord (Customer customer);
-    void updateCustomerRecordFromRecord (UpdateCustomerRecord record, @MappingTarget Customer customer);
+    void updateCustomerFromRecord(UpdateCustomerRecord record, @MappingTarget Customer customer);
 
 }

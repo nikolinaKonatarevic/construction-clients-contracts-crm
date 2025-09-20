@@ -10,6 +10,7 @@ public class ContractClause {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name="title")
@@ -21,5 +22,6 @@ public class ContractClause {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract;
+
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name="date")
@@ -38,6 +40,13 @@ public class Contract {
     @JoinColumn(name = "constrction_company_id")
     private ConstructionCompany company;
 
-    @OneToMany(mappedBy = "contract")
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContractClause> contractClauses;
+
+    public void addContractClauses(ContractClause contractClause) {
+        if (contractClauses == null) {
+            contractClauses = new ArrayList<>();
+        }
+        contractClauses.add(contractClause);
+    }
 }

@@ -10,10 +10,11 @@ import com.Gradjevinsko_preduzece.record.CustomerRecord;
 import com.Gradjevinsko_preduzece.record.UpdateCustomerRecord;
 import com.Gradjevinsko_preduzece.repository.CustomerRepository;
 import com.Gradjevinsko_preduzece.service.ICustomerService;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
@@ -27,9 +28,6 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<CustomerRecord> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
-        if (customers.isEmpty()) {
-            throw new NotFoundException("No customers found");
-        }
         return customers.stream().map(customerMapper::customerToCustomerRecord).toList();
 
     }
@@ -65,7 +63,7 @@ public class CustomerService implements ICustomerService {
         }
 
         Customer customer = customerMapper.createCustomerRecordToCustomer(createCustomerRecord);
-        return customerMapper.customerToCustomerRecord(customer);
+        return customerMapper.customerToCustomerRecord(customerRepository.save(customer));
 
     }
 
@@ -78,7 +76,7 @@ public class CustomerService implements ICustomerService {
                 () -> new NotFoundException(" createCustomerRecord updateCustomer() :: Customer cannot be found")
         );
 
-        customerMapper.updateCustomerRecordFromRecord(updateCustomerRecord, customer);
+        customerMapper.updateCustomerFromRecord(updateCustomerRecord, customer);
         return customerMapper.customerToCustomerRecord(customerRepository.save(customer));
     }
 }

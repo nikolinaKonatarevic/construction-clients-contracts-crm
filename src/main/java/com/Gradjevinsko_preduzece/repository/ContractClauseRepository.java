@@ -1,12 +1,9 @@
 package com.Gradjevinsko_preduzece.repository;
 
-import com.Gradjevinsko_preduzece.entity.Contract;
+import com.Gradjevinsko_preduzece.entity.ContractClause;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface ContractRepository extends JpaRepository<Contract, Long> {
-
+public interface ContractClauseRepository extends JpaRepository<ContractClause, Long> {
 }
